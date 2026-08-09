@@ -1,6 +1,9 @@
-const CACHE_NAME = "tradejournal-v1";
+const CACHE_NAME = "tradejournal-v3";
 const APP_SHELL = [
+  "./",
   "./index.html",
+  "./app.js",
+  "./output.css",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png"
@@ -25,6 +28,18 @@ self.addEventListener("activate", function(event){
 
 self.addEventListener("fetch", function(event){
   if(event.request.method !== "GET") return;
+
+  // Navigations (opening/reloading the app) always fall back to the cached
+  // app shell when offline, even if this exact URL was never cached before.
+  if(event.request.mode === "navigate"){
+    event.respondWith(
+      fetch(event.request).catch(function(){
+        return caches.match("./index.html");
+      })
+    );
+    return;
+  }
+
   event.respondWith(
     caches.match(event.request).then(function(cached){
       var networkFetch = fetch(event.request).then(function(response){
@@ -38,3 +53,4 @@ self.addEventListener("fetch", function(event){
     })
   );
 });
+
