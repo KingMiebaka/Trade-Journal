@@ -30,25 +30,25 @@
     --nav-w: 232px;
   }
   :root[data-theme="light"] {
-    --bg: #F4F5F8;
-    --surface: #FFFFFF;
-    --surface-2: #F0F1F5;
-    --surface-3: #E7E9EF;
-    --border: #E1E4EA;
-    --text: #161B22;
-    --text-dim: #5B6472;
-    --text-faint: #98A1B0;
-    --accent: #A9791E;
-    --accent-dim: rgba(169,121,30,0.12);
-    --long: #A9791E;
-    --short: #3E5C99;
-    --win: #1E8E5A;
-    --win-dim: rgba(30,142,90,0.10);
-    --loss: #D0453F;
-    --loss-dim: rgba(208,69,63,0.10);
-    --be: #5B6472;
-    --shadow: 0 10px 30px rgba(30,40,60,0.12);
-    --bg-rgb: 244,245,248;
+    --bg: #E7E8EC;
+    --surface: #F3F4F7;
+    --surface-2: #EAEBEF;
+    --surface-3: #E0E2E7;
+    --border: #D4D7DE;
+    --text: #1A1F27;
+    --text-dim: #565F6C;
+    --text-faint: #838C9B;
+    --accent: #96701C;
+    --accent-dim: rgba(150,112,28,0.14);
+    --long: #96701C;
+    --short: #3A5590;
+    --win: #1B7F50;
+    --win-dim: rgba(27,127,80,0.12);
+    --loss: #C23E38;
+    --loss-dim: rgba(194,62,56,0.12);
+    --be: #565F6C;
+    --shadow: 0 10px 30px rgba(20,25,35,0.14);
+    --bg-rgb: 231,232,236;
   }
 
   html, body { @apply m-0 p-0; }
