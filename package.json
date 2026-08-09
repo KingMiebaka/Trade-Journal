@@ -1,0 +1,13 @@
+{
+  "name": "tradejournal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A fast, permanent trading journal for forex, stocks, crypto, futures and indices.",
+  "scripts": {
+    "build": "mkdir -p dist && cp index.html app.js manifest.json sw.js privacy.html icon-192.png icon-512.png dist/ && cp -r screenshots dist/ && tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "dev": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}

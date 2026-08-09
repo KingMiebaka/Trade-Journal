@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TradeJournal — Trading Log for Every Market</title>
+<meta name="description" content="TradeJournal — a fast, permanent trading journal for forex, stocks, crypto, futures and indices. Log trades, track performance by week, month, quarter and year.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0A0F1C">
+<meta name="background-color" content="#0A0F1C">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="TradeJournal">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<link rel="stylesheet" href="output.css">
+<script>
+(function(){
+  try{
+    var t = localStorage.getItem('tradejournal-theme');
+    if(!t){ t = (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) ? 'light' : 'dark'; }
+    if(t === 'light') document.documentElement.setAttribute('data-theme','light');
+  }catch(e){}
+})();
+</script>
+</head>
+<body>
+
+<div class="shell">
+  <header class="ticker">
+    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Open menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <div class="ticker-brand"><span class="dot"></span><span class="brand-text">TradeJournal</span></div>
+    <div class="ticker-stats">
+      <div class="ticker-item"><span class="lbl">Bal</span><span class="val num" id="tkBalance">$0.00</span></div>
+      <div class="ticker-item"><span class="lbl">P&amp;L</span><span class="val num" id="tkPnl">$0.00</span></div>
+    </div>
+    <svg class="ticker-spark" id="tkSpark" viewBox="0 0 64 28" preserveAspectRatio="none"></svg>
+  </header>
+
+  <div class="nav-backdrop" id="navBackdrop"></div>
+  <nav class="nav" id="mainNav">
+    <div class="nav-head">
+      <div class="nav-logo">Trade<span>Journal</span></div>
+      <button class="nav-close" id="navClose" aria-label="Close menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <button class="nav-btn active" data-tab="log" aria-label="Log trade">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+      <span>Log</span>
+    </button>
+    <button class="nav-btn" data-tab="trades" aria-label="Trades">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+      <span>Trades</span>
+    </button>
+    <button class="nav-btn" data-tab="stats" aria-label="Stats">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>
+      <span>Stats</span>
+    </button>
+    <button class="nav-btn" data-tab="settings" aria-label="Settings">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+      <span>Settings</span>
+    </button>
+  </nav>
+
+  <main>
+    <!-- LOG PANEL -->
+    <section class="panel active" id="panel-log">
+      <h1 class="page-title">Log a trade</h1>
+      <p class="page-sub">Enter it the moment you take it — close it out later from the Trades tab.</p>
+      <form id="tradeForm">
+        <div class="section-label">Symbol</div>
+        <div class="field">
+          <div class="chip-row" id="pairChips"></div>
+          <input type="text" id="pairCustom" placeholder="Or type any symbol, e.g. AAPL, BTC/USD, EUR/NZD" style="margin-top:10px;">
+        </div>
+
+        <div class="section-label">Direction &amp; date</div>
+        <div class="field-row">
+          <div class="field" style="margin-bottom:0;">
+            <label>Direction</label>
+            <div class="toggle-row">
+              <button type="button" class="toggle-btn active" data-dir="Long">LONG</button>
+              <button type="button" class="toggle-btn" data-dir="Short">SHORT</button>
+            </div>
+          </div>
+          <div class="field" style="margin-bottom:0;">
+            <label for="fDate">Date</label>
+            <input type="date" id="fDate">
+          </div>
+        </div>
+
+        <div class="section-label">Risk management</div>
+        <div class="field-row3">
+          <div class="field"><label for="fEntry">Entry</label><input type="number" step="any" id="fEntry" placeholder="0.00000"></div>
+          <div class="field"><label for="fSL">Stop loss</label><input type="number" step="any" id="fSL" placeholder="0.00000"></div>
+          <div class="field"><label for="fTP">Take profit</label><input type="number" step="any" id="fTP" placeholder="optional"></div>
+        </div>
+        <div class="field-row">
+          <div class="field"><label for="fRisk">Risk %</label><input type="number" step="any" id="fRisk" placeholder="1.0"></div>
+          <div class="field"><label for="fLot">Size</label><input type="number" step="any" id="fLot" placeholder="optional"></div>
+        </div>
+
+        <div class="section-label">Exit <span style="font-weight:500;text-transform:none;color:var(--text-faint);">(leave blank if still open)</span></div>
+        <div class="field-row">
+          <div class="field"><label for="fExit">Exit price</label><input type="number" step="any" id="fExit" placeholder="optional"></div>
+          <div class="field"><label for="fExitDate">Exit date</label><input type="date" id="fExitDate"></div>
+        </div>
+
+        <div class="section-label">Notes</div>
+        <div class="field">
+          <textarea id="fNotes" placeholder="Setup, why you took it, how you managed it…"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="saveBtn">Save trade</button>
+      </form>
+    </section>
+
+    <!-- TRADES PANEL -->
+    <section class="panel" id="panel-trades">
+      <h1 class="page-title">Trades</h1>
+      <p class="page-sub">Tap a trade to edit, close it out, or delete it.</p>
+      <div class="field" style="margin-bottom:14px;">
+        <input type="text" id="tradeSearch" placeholder="Search by symbol or notes…">
+      </div>
+      <div class="trade-list" id="tradeList"></div>
+    </section>
+
+    <!-- STATS PANEL -->
+    <section class="panel" id="panel-stats">
+      <h1 class="page-title">Performance</h1>
+      <p class="page-sub">Updates automatically as you log and close trades.</p>
+      <div class="kpi-grid" id="kpiGrid"></div>
+
+      <div class="section-label">Equity Curve</div>
+      <div class="card">
+        <svg id="equityChart" viewBox="0 0 600 220" preserveAspectRatio="none" style="width:100%;height:200px;display:block;"></svg>
+      </div>
+
+      <div class="section-label">By Symbol</div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:420px;" id="pairTable"></table></div>
+      </div>
+
+      <div class="section-label">Performance by Period</div>
+      <div class="chip-row" id="periodTabs" style="margin-bottom:10px;">
+        <button type="button" class="chip" data-period="week">Week</button>
+        <button type="button" class="chip selected" data-period="month">Month</button>
+        <button type="button" class="chip" data-period="quarter">Quarter</button>
+        <button type="button" class="chip" data-period="year">Year</button>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden;">
+        <div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;font-size:12.5px;min-width:420px;" id="periodTable"></table></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS PANEL -->
+    <section class="panel" id="panel-settings">
+      <h1 class="page-title">Settings</h1>
+      <p class="page-sub" id="storageMode">—</p>
+
+      <div class="section-label" style="margin-top:0;">Account</div>
+      <div class="card" id="accountPanel"></div>
+
+      <div class="card" style="margin-top:22px;">
+        <div class="settings-row">
+          <div><div class="t">Starting balance</div><div class="s">Used as the base for your equity curve</div></div>
+          <input type="number" step="any" id="sBalance">
+        </div>
+        <div class="settings-row">
+          <div><div class="t">Default risk %</div><div class="s">Pre-fills the Log form</div></div>
+          <input type="number" step="any" id="sRisk">
+        </div>
+      </div>
+      <button class="btn btn-ghost" id="saveSettingsBtn" style="margin-top:14px;">Save settings</button>
+
+      <div class="section-label">Data</div>
+      <div class="card">
+        <div class="settings-row">
+          <div><div class="t">Trades stored</div><div class="s" id="sCount">0 trades</div></div>
+        </div>
+        <div class="settings-row">
+          <div><div class="t">Last backup</div><div class="s" id="sBackup">Never</div></div>
+        </div>
+      </div>
+      <div class="btn-row" style="margin-top:14px;">
+        <button class="btn btn-ghost" id="exportCsvBtn">Export CSV</button>
+        <button class="btn btn-ghost" id="exportJsonBtn">Backup (JSON)</button>
+      </div>
+      <button class="btn btn-ghost" id="importJsonBtn" style="margin-top:10px;">Restore from backup</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none;">
+
+      <div class="section-label">App</div>
+      <div class="card">
+        <div class="settings-row">
+          <div><div class="t">Appearance</div><div class="s">Light or dark</div></div>
+          <div class="toggle-row" style="width:auto;gap:6px;">
+            <button type="button" class="chip" id="themeLightBtn">Light</button>
+            <button type="button" class="chip" id="themeDarkBtn">Dark</button>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-ghost" id="installBtn" style="margin-top:14px;display:none;">Install app</button>
+      <p class="page-sub" style="margin-top:10px;">On iPhone/iPad: tap Share, then "Add to Home Screen" for the same effect.</p>
+
+      <button class="btn btn-danger" id="resetBtn" style="margin-top:22px;">Erase all trades</button>
+    </section>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="editModal">
+  <div class="modal">
+    <div class="modal-head">
+      <h2>Edit trade</h2>
+      <button class="icon-btn" id="closeModal" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div id="editFormHost"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
