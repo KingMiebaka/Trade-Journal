@@ -18,18 +18,25 @@
   ],
   "screenshots": [
     {
-      "src": "screenshots/mobile-stats.png",
+      "src": "screenshots/store-1-log.png",
+      "sizes": "412x915",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Log a trade in seconds"
+    },
+    {
+      "src": "screenshots/store-2-trades.png",
+      "sizes": "412x915",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Every trade across every market"
+    },
+    {
+      "src": "screenshots/store-3-stats.png",
       "sizes": "412x915",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Performance breakdown with equity curve"
-    },
-    {
-      "src": "screenshots/desktop-trades.png",
-      "sizes": "1280x800",
-      "type": "image/png",
-      "form_factor": "wide",
-      "label": "Trade list across forex, crypto, stocks and gold"
     }
   ]
 }
