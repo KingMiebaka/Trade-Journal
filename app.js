@@ -11,8 +11,8 @@
   // Fill these in once you've created a free Supabase project (see README).
   // Leave SUPABASE_URL blank to run in local-only guest mode with no account
   // system at all — the app works exactly as before either way.
-  var SUPABASE_URL = "";
-  var SUPABASE_ANON_KEY = "";
+var SUPABASE_URL = "https://plpltmnyushsmjggatov.supabase.co";
+var SUPABASE_ANON_KEY = "sb_publishable_KcYFUdMyKfCdUWW7jjb-wQ_RNrba-R7";
   var CLOUD_ENABLED = !!(SUPABASE_URL && SUPABASE_ANON_KEY);
   var sb = CLOUD_ENABLED && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
   var currentUser = null; // set once a session is confirmed
