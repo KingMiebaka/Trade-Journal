@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "app.vercel.trade_journal_ruby_two.twa",
+        "sha256_cert_fingerprints": ["1F:24:3F:09:59:52:54:CE:D3:D7:C0:E6:3A:1C:A4:B3:FE:BE:DC:22:80:2D:7B:AC:5A:BB:F9:C6:F9:1C:E0:3B"]
+      }
+    }]
