@@ -1,9 +1,7 @@
-const CACHE_NAME = "tradejournal-v3";
+const CACHE_NAME = "tradejournal-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
-  "./app.js",
-  "./output.css",
   "./manifest.json",
   "./icon-192.png",
   "./icon-512.png"
