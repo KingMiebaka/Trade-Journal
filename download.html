@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Download TradeJournal for Android</title>
+<meta name="description" content="Download TradeJournal directly for Android — a trading log for forex, stocks, crypto, futures and indices.">
+<link rel="icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0F1C; --surface:#101828; --surface-2:#16203A; --border:#24304F;
+    --text:#ECEFF6; --text-dim:#8891A8; --text-faint:#5B6480;
+    --accent:#E8B454; --accent-dim:rgba(232,180,84,0.14);
+    --win:#3ECF8E; --loss:#FF6B6B;
+    --radius:14px; --radius-sm:9px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    background-image:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(232,180,84,0.07), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 0%, rgba(110,140,196,0.06), transparent 60%);
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  .num{font-family:'JetBrains Mono',monospace;}
+  .card{
+    max-width:460px; width:100%; background:var(--surface);
+    border:1px solid var(--border); border-radius:20px; padding:36px 28px;
+    text-align:center;
+  }
+  .icon{width:72px;height:72px;border-radius:18px;margin:0 auto 20px;display:block;}
+  .brand{font-size:13px;font-weight:700;letter-spacing:0.08em;color:var(--text-dim);text-transform:uppercase;margin-bottom:8px;}
+  h1{font-size:24px;margin:0 0 10px;}
+  p.sub{color:var(--text-dim);font-size:14.5px;line-height:1.6;margin:0 0 28px;}
+  .dl-btn{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    background:var(--accent); color:#241705; text-decoration:none;
+    font-weight:700; font-size:16px; padding:16px; border-radius:var(--radius-sm);
+    margin-bottom:10px; transition:opacity .15s ease;
+  }
+  .dl-btn:hover{opacity:0.92;}
+  .dl-btn svg{width:20px;height:20px;}
+  .meta{font-size:12.5px;color:var(--text-faint);margin-bottom:28px;}
+  .steps{text-align:left; background:var(--surface-2); border:1px solid var(--border); border-radius:var(--radius); padding:18px 20px; margin-bottom:20px;}
+  .steps .label{font-size:11px;font-weight:700;letter-spacing:0.08em;color:var(--text-faint);text-transform:uppercase;margin-bottom:12px;}
+  .steps ol{margin:0;padding-left:20px;color:var(--text-dim);font-size:13.5px;line-height:1.9;}
+  .steps li::marker{color:var(--accent);font-weight:700;}
+  .steps b{color:var(--text);}
+  .foot{font-size:12px;color:var(--text-faint);line-height:1.6;}
+  .foot a{color:var(--text-dim);}
+</style>
+</head>
+<body>
+  <div class="card">
+    <img class="icon" src="icon-192.png" alt="TradeJournal icon">
+    <div class="brand">TradeJournal</div>
+    <h1>Download for Android</h1>
+    <p class="sub">A trading log for forex, stocks, crypto, futures and indices — install it directly, no Play Store needed.</p>
+
+    <a class="dl-btn" href="tradejournal.apk" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download APK
+    </a>
+    <div class="meta">~940 KB · Android 8.0 or newer</div>
+
+    <div class="steps">
+      <div class="label">After downloading</div>
+      <ol>
+        <li>Open the downloaded file from your notifications or Downloads folder</li>
+        <li>If prompted, allow <b>"install unknown apps"</b> for your browser — this is normal for apps installed outside the Play Store</li>
+        <li>Tap <b>Install</b>, then open TradeJournal from your app drawer</li>
+      </ol>
+    </div>
+
+    <p class="foot">This app isn't on the Play Store yet — installing it this way is completely safe and works the same as any Play Store app once installed. Your data stays private either way: everything is stored on your device, or synced to your own account if you choose to sign in.</p>
+  </div>
+</body>
+</html>
